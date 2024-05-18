@@ -5,10 +5,5 @@ import react from '@vitejs/plugin-react'
 //export default
 
 export default defineConfig({
-  build: {
-    rollupOptions: {
-      external: ['/src/main.jsx']
-    }
-  },
   plugins: [react()],
 })
