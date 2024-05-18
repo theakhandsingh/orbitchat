@@ -1,10 +1,12 @@
-import React, { useContext, useState } from 'react'
+import React, { useContext, useState, useEffect } from 'react'
 import './Main.css'
+import { marked } from 'marked'; 
 import { assets } from '../../assets/assets'
 import { Context } from '../../context/Context'
 
 const Main = () => {
-
+  const [htmlContent, setHtmlContent] = useState('');
+  
   const { onSent,
     recentPrompt,
     showResult,
@@ -13,7 +15,12 @@ const Main = () => {
     setInput,
     input
   } = useContext(Context);
-
+  
+  useEffect(() => {
+    if (!loading) {
+      setHtmlContent(marked(resultData));
+    }
+  }, [loading, resultData]);
 
   return (
     <div className='main'>
@@ -36,7 +43,7 @@ const Main = () => {
                   <hr className="animated-bg" />
                   <hr className="animated-bg" />
                 </div>
-                : <p dangerouslySetInnerHTML={{ __html: resultData }}></p>
+                : <p dangerouslySetInnerHTML={{ __html: htmlContent }}></p>
               }
             </div>
 
